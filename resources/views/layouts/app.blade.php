@@ -27,9 +27,9 @@
 
 <body class="page-main">
     <div id="preloader"></div>
-    @include('include.navbar')
+    @include('components.navbar')
     @yield('content')
-    @include('include.footer-app')
+    @include('components.footer')
 </body>
 
 </html>

@@ -1,14 +1,22 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ShelterController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TrekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +30,17 @@ use App\Http\Controllers\PermissionController;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('about', [AboutController::class, 'index'])->name('about');
+Route::get('team', [TeamController::class, 'index'])->name('team');
+Route::get('shelter', [ShelterController::class, 'index'])->name('shelter');
+Route::get('gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('history', [HistoryController::class, 'index'])->name('history');
+Route::get('treks', [TrekController::class, 'index'])->name('trek');
+Route::prefix('blog')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('blog');
+    // Route::get('/{slug}', [BlogController::class, 'show'])->name('blog.show');
+});
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('login', [LoginController::class,'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class,'login']);
