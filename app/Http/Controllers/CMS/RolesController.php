@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMS;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -29,7 +30,7 @@ class RolesController extends Controller
         try{
             $permissions = Permission::pluck('name','id');
 
-            return view('roles', compact('permissions'));
+            return view('pages.cms.roles.index', compact('permissions'));
         }catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
@@ -44,7 +45,7 @@ class RolesController extends Controller
 
     public function getRoleList(Request $request)
     {
-        
+
         $data  = Role::get();
 
         return Datatables::of($data)
@@ -88,7 +89,7 @@ class RolesController extends Controller
         $validator = Validator::make($request->all(), [
             'role' => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
@@ -97,7 +98,7 @@ class RolesController extends Controller
             $role = Role::create(['name' => $request->role]);
             $role->syncPermissions($request->permissions);
 
-            if($role){ 
+            if($role){
                 return redirect('roles')->with('success', 'Role created succesfully!');
             }else{
                 return redirect('roles')->with('error', 'Failed to create role! Try again.');
@@ -119,7 +120,7 @@ class RolesController extends Controller
 
             $permissions = Permission::pluck('name','id');
 
-            return view('edit-roles', compact('role','role_permission','permissions'));
+            return view('pages.cms.roles.edit', compact('role','role_permission','permissions'));
         }else{
             return redirect('404');
         }
@@ -127,19 +128,19 @@ class RolesController extends Controller
 
     public function update(Request $request)
     {
-        
+
 
         // update role
         $validator = Validator::make($request->all(), [
             'role' => 'required',
             'id'   => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
         try{
-            
+
             $role = Role::find($request->id);
 
             $update = $role->update([

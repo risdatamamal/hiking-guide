@@ -4,7 +4,12 @@
     <main>
         <section class="section-base">
             <div class="container">
-                <div class="google-map" data-marker="media/marker.png" data-coords="46.01049736894874,11.22314543457037"></div>
+                <div class="google-map" data-marker="media/marker.png">
+                    @if ($contact->maps != null)
+                        <iframe src={{ $contact->maps }} width="600" height="450" style="border: 0" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @endif
+                </div>
                 <hr class="space" />
                 <div class="row">
                     <div class="col-lg-8">
@@ -13,7 +18,7 @@
                             <p>Contact us from here</p>
                         </div>
                         <form action="themekit/scripts/contact-form/contact-form.php" class="form-box form-ajax"
-                            method="post" data-email="example@domain.com">
+                            method="post" data-email="hiking-guide@gmail.com">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <p>Name</p>
@@ -50,31 +55,55 @@
                         <ul class="text-list text-list-line">
                             <li><b>Address</b>
                                 <hr />
-                                <p>Pellegrino, Veneto, Italy</p>
+                                @php
+                                    $address = $contact->address;
+                                    $addressWithBreaks = wordwrap($address, 65, '</br>', true);
+                                    echo $addressWithBreaks;
+                                @endphp
                             </li>
-                            <li><b>Web</b>
+                            <li><b>Website</b>
                                 <hr />
-                                <p>domain.com</p>
+                                <p>{{ $contact->website }}</p>
                             </li>
                             <li><b>Email</b>
                                 <hr />
-                                <p>info@domain.com</p>
+                                <p>{{ $contact->email }}</p>
                             </li>
                             <li><b>Phone</b>
                                 <hr />
-                                <p>(02) 123 456 789999</p>
+                                <p>+{{ $contact->phone }}</p>
                             </li>
-                            <li><b>Skype</b>
-                                <hr />
-                                <p>example.name</p>
-                            </li>
+                            @if ($contact->whatsapp != null)
+                                <li><b>Whatsapp</b>
+                                    <hr />
+                                    <a href="https://wa.me/{{ $contact->whatsapp }}">
+                                        <p>+{{ $contact->whatsapp }}</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                         <hr class="space-sm" />
                         <div class="icon-links icon-social icon-links-grid social-colors-hover">
-                            <a class="facebook"><i class="icon-facebook"></i></a>
-                            <a class="twitter"><i class="icon-twitter"></i></a>
-                            <a class="instagram"><i class="icon-instagram"></i></a>
-                            <a class="google"><i class="icon-google"></i></a>
+                            @if ($contact->instagram != null)
+                                <a class="instagram" href="https://www.instagram.com/{{ $contact->instagram }}"><i
+                                        class="icon-instagram"></i></a>
+                            @endif
+                            @if ($contact->facebook != null)
+                                <a class="facebook" href="https://www.facebook.com/{{ $contact->facebook }}"><i
+                                        class="icon-facebook"></i></a>
+                            @endif
+                            @if ($contact->youtube != null)
+                                <a class="youtube" href="https://www.youtube.com/{{ $contact->youtube }}"><i
+                                        class="icon-youtube"></i></a>
+                            @endif
+                            @if ($contact->twitter != null)
+                                <a class="twitter" href="https://www.twitter.com/{{ $contact->twitter }}"><i
+                                        class="icon-twitter"></i></a>
+                            @endif
+                            @if ($contact->linkedin != null)
+                                <a class="linkedin" href="https://www.linkedin.com/{{ $contact->linkedin }}"><i
+                                        class="icon-linkedin"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>

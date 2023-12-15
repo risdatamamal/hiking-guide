@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Models\User;
 use Auth;
 
 class UserController extends Controller
@@ -28,7 +28,7 @@ class UserController extends Controller
             'password' => 'required | confirmed',
             'role'     => 'required'
         ]);
-        
+
         // store user information
         $user = User::create([
                     'name'     => $request->name,
@@ -81,12 +81,12 @@ class UserController extends Controller
         $request->validate([
             'roles'     => 'required'
         ]);
-        
+
         // update user roles
         $user = User::find($id);
         if($user){
             // assign role to user
-            $user->syncRoles($request->roles);    
+            $user->syncRoles($request->roles);
             return response([
                 'message' => 'Roles changed successfully!',
                 'success' => 1

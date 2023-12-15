@@ -18,11 +18,10 @@ use App\Http\Controllers\Api\PermissionController;
 |
 */
 
-
 Route::post('login', [AuthController::class,'login']);
 
-Route::group(['middleware' => 'auth:api'], function(){
-	
+Route::group(['middleware' => 'auth:api'], function() {
+
 	Route::get('logout', [AuthController::class,'logout']);
 
 	Route::get('profile', [AuthController::class,'profile']);
@@ -55,5 +54,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 		Route::get('/permission/{id}', [PermissionController::class,'show']);
 		Route::get('/permission/delete/{id}', [PermissionController::class,'delete']);
 	});
-	
+
+    //only those have manage_content permission will get access
+
 });

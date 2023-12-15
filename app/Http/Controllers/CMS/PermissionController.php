@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMS;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -29,7 +30,7 @@ class PermissionController extends Controller
         try{
             $roles = Role::pluck('name','id');
 
-            return view('permission', compact('roles'));
+            return view('pages.cms.permissions.index', compact('roles'));
         }catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
@@ -44,7 +45,7 @@ class PermissionController extends Controller
 
     public function getPermissionList(Request $request)
     {
-        
+
         $data  = Permission::get();
 
         return Datatables::of($data)
@@ -78,11 +79,11 @@ class PermissionController extends Controller
 
     public function create(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'permission' => 'required'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('error', $validator->messages()->first());
         }
@@ -90,7 +91,7 @@ class PermissionController extends Controller
             $permission = Permission::create(['name' => $request->permission]);
             $permission->syncRoles($request->roles);
 
-            if($permission){ 
+            if($permission){
                 return redirect('permission')->with('success', 'Permission created succesfully!');
             }else{
                 return redirect('permission')->with('error', 'Failed to create permission! Try again.');
@@ -101,7 +102,7 @@ class PermissionController extends Controller
         }
     }
 
-  
+
 
     public function update(Request $request)
     {
