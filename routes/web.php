@@ -112,10 +112,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/blogs', [CMSBlogController::class, 'index']);
         Route::get('/blog/get-list', [CMSBlogController::class, 'getBlogList']);
         Route::get('/blog/create', [CMSBlogController::class, 'create']);
-        Route::post('/blog/create', [CMSBlogController::class, 'store'])->name('create-blog');
-        // Route::get('/blog/{id}', [CMSBlogController::class, 'edit']);
-        // Route::post('/blog/update', [CMSBlogController::class, 'update']);
-        // Route::get('/blog/delete/{id}', [CMSBlogController::class, 'delete']);
+        Route::post('/blog/create', [CMSBlogController::class, 'store'])->name('store-blog');
+        // Route::get('/blog/edit/{id}', [CMSBlogController::class, 'edit']);
+        // Route::post('/blog/update', [CMSBlogController::class, 'update'])->name('update-blog'));
+        Route::post('/blog/delete/{id}', [CMSBlogController::class, 'delete'])->name('delete-blog');
     });
 
     // permission examples

@@ -24,7 +24,7 @@
                 @can('manage_user' || 'manage_role' || 'manage_permission')
                     <div
                         class="nav-item {{ $segment1 == 'users' || $segment1 == 'roles' || $segment1 == 'permission' || $segment1 == 'user' || $segment1 == 'role' ? 'active open' : '' }} has-sub">
-                        <a href="#"><i class="ik ik-user"></i><span>{{ __('Adminstrator') }}</span></a>
+                        <a href="javascript:void(0)"><i class="ik ik-user"></i><span>{{ __('Adminstrator') }}</span></a>
                         <div class="submenu-content">
                             <!-- only those have manage_user permission will get access -->
                             @can('manage_user')
@@ -50,7 +50,7 @@
                         <a href="#"><i class="ik ik-home"></i><span>{{ __('Home') }}</span></a>
                     </div>
                     <div class="nav-item has-sub">
-                        <a href="#"><i class="ik ik-info"></i><span>{{ __('About') }}</span></a>
+                        <a href="javascript:void(0)"><i class="ik ik-info"></i><span>{{ __('About') }}</span></a>
                         <div class="submenu-content">
                             <a href="#" class="menu-item">{{ __('About') }}</a>
                             <a href="#" class="menu-item">{{ __('Team') }}</a>
